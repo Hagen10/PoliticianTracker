@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  oda-db:
+    profiles: ['core']
+    build:
+      context: ./ftdata
+      dockerfile: docker/oda.Dockerfile
+      args:
+        BAK_URL: "https://oda.ft.dk/odapublish/oda.bak"
+        BAK_USER: "ODAwebpublish"
+        BAK_PASS: "b56ff26a-c19b-4322-a3c4-614de155781d"
+    container_name: oda-db
+    environment:
+      SA_PASSWORD: "DefaultStrong!Passw0rd"
+    ports:
+      - "1433:1433"
+    networks:
+      - ftdata-network
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "DefaultStrong!Passw0rd" -d ODA -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+  ftdata:
+    profiles: ['app']
+    build:
+      context: ./ftdata
+      dockerfile: docker/ftdata.Dockerfile
+    container_name: ftdata
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:sqlserver://oda-db:1433;databaseName=ODA;Encrypt=True;trustServerCertificate=True;Authentication=SqlPassword"
+      SPRING_DATASOURCE_USERNAME: "sa"
+      SPRING_DATASOURCE_PASSWORD: "DefaultStrong!Passw0rd"
+    ports:
+      - "8080:8080"
+    networks:
+      - ftdata-network
+    depends_on:
+      oda-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/politicians"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 45s
+
+  ftweb:
+    profiles: ['app']
+    build:
+      context: ./ftweb
+      dockerfile: docker/ftweb.Dockerfile
+    container_name: ftweb
+    ports:
+      - "4200:4200"
+    networks:
+      - ftdata-network
+    depends_on:
+      ftdata:
+        condition: service_healthy
+
+networks:
+  ftdata-network:
+    driver: bridge
