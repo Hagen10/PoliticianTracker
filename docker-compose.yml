@@ -25,7 +25,7 @@ services:
       start_period: 60s
 
   ftdata:
-    profiles: ['app']
+    profiles: ['ftdata']
     build:
       context: ./ftdata
       dockerfile: docker/ftdata.Dockerfile
@@ -49,7 +49,7 @@ services:
       start_period: 45s
 
   ftweb:
-    profiles: ['app']
+    profiles: ['ftweb-ts']
     build:
       context: ./ftweb
       dockerfile: docker/ftweb.Dockerfile
@@ -58,6 +58,23 @@ services:
       - "4200:4200"
     networks:
       - ftdata-network
+    depends_on:
+      ftdata:
+        condition: service_healthy
+
+  ftweb-rb:
+    profiles: ['ftweb-rb']
+    build:
+      context: ./ftweb-rb
+      dockerfile: dev.Dockerfile
+    container_name: ftweb-rb
+    ports:
+      - "3000:3000"
+    networks:
+      - ftdata-network
+    environment:
+      RAILS_ENV: development
+      KOTLIN_API_URL: "http://ftdata:8080"
     depends_on:
       ftdata:
         condition: service_healthy
