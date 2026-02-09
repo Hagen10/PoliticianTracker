@@ -2,10 +2,10 @@
 Website for easily looking up the votes of any politician in the Danish parliament (Folketinget or ft for short). It relies on 2 repos, the first being ftdata which sets up a container with the mssql database and a Kotlin application responsible for queries. ftdata also exposes an api which another application can use to retrieve data from the database. The 2nd repo is either ftweb (Typescript/Angular to be removed) or ftweb-rb (ruby on rails) which both retrieves data from ftdata and then displays it on a webpage. The reason why there is both a typescript/angular and a ruby on rails repo for the frontend is that the project was started with typescript but a decision was made to learn ruby instead, so as the ruby repository advances, the typescript repo will not. It is scheduled for deletion.
 
 ## Run with Docker
-Download this repository and run `make setup` which will download the frontend and backend repos and start up the Docker container which runs the MSSQL database. Then run `make run-ts` to build and start the containers for the frontend (ftweb typescript) and backend (ftdata) or `make run-rb` for running the setup with the ruby on rails container. The website can then be accessed at `http://localhost:4200`.
+Download this repository and run `make setup` which will download the frontend and backend repos and start up the Docker container which runs the MSSQL database. Then run `make run-ts` to build and start the containers for the frontend (ftweb typescript) and backend (ftdata) or `make run-rb` for running the setup with the ruby on rails container. The website can then be accessed at `http://localhost:4200` (use port `3000` for ruby on rails).
 
 ## Run locally
-Running the services locally still requires the oda-db container with the database. 'ftdata' can be run with `gradle run` from inside its repo. 'ftweb' can be run with `npm install` followed by `ng serve` or instead 'ftweb-rb' can be run with `bin/rails server`. All of these commands are to be run from within their respective directory. The website will still be accessible at `http://localhost:4200`.
+Running the services locally still requires the oda-db container with the database. 'ftdata' can be run with `gradle run` from inside its repo. 'ftweb' can be run with `npm install` followed by `ng serve` or instead 'ftweb-rb' can be run with `bin/rails server`. All of these commands are to be run from within their respective directory. The website will still be accessible at `http://localhost:4200` (use port `3000` for ruby on rails).
 
 ## To-Do
 
@@ -13,9 +13,9 @@ Running the services locally still requires the oda-db container with the databa
 - What could be nice is to somehow compare the newest downloaded database with the previous one to ensure that data isn't all of a sudden lost.
 - some type of authentication between frontend and backend?
 - harden security wise. Should the communication between frontend and backend be mtls? Likely. Also, the application.yml file should be fed the password instead of hardcoding. Applies anywhere where the password is appearing at present.
-- create a new repo for the frontend written in Typescript
 - testing?
 - remove all hardcoded passwords
+- queries should probably include period, so we can filter voting sessions by year or parliamentary year in the UI
 
 ### ftweb
 - The api URL to ftdata still uses regular http...
