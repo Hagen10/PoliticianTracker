@@ -33,3 +33,6 @@ Running the services locally still requires the oda-db container with the databa
 - clean up all the folders and files not needed.
 - Security?
 - Look into kamal
+
+## Update
+- signed signatures are being enforced
