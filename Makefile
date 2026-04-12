@@ -20,11 +20,18 @@ run-rb:
 .PHONY: stop-rb
 stop-rb:
 	docker-compose --profile ftdata --profile ftweb-rb stop
+	
+.PHONY: run-vector
+run-vector:
+	docker-compose --profile vector up --build -d
 
+.PHONY: stop-vector
+stop-vector:
+	docker-compose --profile vector stop
 
 .PHONY: stop-all
 stop-all:
-	docker-compose --profile core --profile ftdata --profile ftweb-ts --profile ftweb-rb down
+	docker-compose --profile core --profile ftdata --profile ftweb-ts --profile ftweb-rb --profile vector down
 
 .PHONY: clean
 clean:
