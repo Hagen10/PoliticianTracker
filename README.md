@@ -7,6 +7,9 @@ Download this repository and run `make setup` which will download the frontend a
 ## Run locally
 Running the services locally still requires the oda-db container with the database. 'ftdata' can be run with `gradle run` from inside its repo. 'ftweb' can be run with `npm install` followed by `ng serve` or instead 'ftweb-rb' can be run with `bin/rails server`. All of these commands are to be run from within their respective directory. The website will still be accessible at `http://localhost:4200` (use port `3000` for ruby on rails).
 
+## Vector embeddings
+The main branch of the `ftdata`repository now contains dockerfiles to set up a small vector embedding generation and retrieval environment. Run `make run-vector` to set it up here. More info can be found in the `README.md` file found in the `ftdata` directory.
+
 ## To-Do
 
 ### ftdata
