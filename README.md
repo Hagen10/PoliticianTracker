@@ -2,6 +2,11 @@
 Website for easily looking up the votes of any politician in the Danish parliament (Folketinget or ft for short). It relies on 2 repos, the first being ftdata which sets up a container with the mssql database and a Kotlin application responsible for queries. ftdata also exposes an api which another application can use to retrieve data from the database. The 2nd repo is either ftweb (Typescript/Angular to be removed) or ftweb-rb (ruby on rails) which both retrieves data from ftdata and then displays it on a webpage. The reason why there is both a typescript/angular and a ruby on rails repo for the frontend is that the project was started with typescript but a decision was made to learn ruby instead, so as the ruby repository advances, the typescript repo will not. It is scheduled for deletion.
 
 ## Run with Docker
+### Prerequisites
+- [Docker Engine](https://docs.docker.com/engine/install/)
+- [Docker Compose plugin](https://docs.docker.com/compose/install/linux/) (`docker compose version`)
+- [Docker Buildx plugin](https://github.com/docker/buildx/releases) (`docker buildx version`)
+
 Download this repository and run `make setup` which will download the frontend and backend repos and start up the Docker container which runs the MSSQL database. Then run `make run-ts` to build and start the containers for the frontend (ftweb typescript) and backend (ftdata) or `make run-rb` for running the setup with the ruby on rails container. The website can then be accessed at `http://localhost:4200` (use port `3000` for ruby on rails).
 
 ## Run locally
