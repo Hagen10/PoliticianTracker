@@ -42,5 +42,8 @@ The main branch of the `ftdata`repository now contains dockerfiles to set up a s
 - Security?
 - Look into kamal
 
+### This repo
+- make a way to back up the volume of the solr index
+
 ## Update
 - signed signatures are being enforced

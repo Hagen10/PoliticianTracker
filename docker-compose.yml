@@ -75,6 +75,7 @@ services:
     environment:
       RAILS_ENV: development
       KOTLIN_API_URL: "http://ftdata:8080"
+      VECTOR_API_URL: "http://api:8000"
     depends_on:
       ftdata:
         condition: service_healthy
