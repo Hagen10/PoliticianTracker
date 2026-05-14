@@ -29,6 +29,11 @@ run-vector:
 stop-vector:
 	docker compose --profile vector stop
 
+.PHONY: test-vector
+test-vector:
+	docker compose --profile vector-test build vector-test
+	docker compose --profile vector-test run --rm vector-test
+
 .PHONY: stop-all
 stop-all:
 	docker compose --profile core --profile ftdata --profile ftweb-ts --profile ftweb-rb --profile vector down
