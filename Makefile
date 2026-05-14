@@ -27,16 +27,12 @@ stop-rb:
 	
 .PHONY: run-vector
 run-vector:
+	mkdir -p ftdata/vectors/models
 	docker compose --profile vector up --build -d
 
 .PHONY: stop-vector
 stop-vector:
 	docker compose --profile vector stop
-
-.PHONY: test-vector
-test-vector:
-	docker compose --profile vector-test build vector-test
-	docker compose --profile vector-test run --rm vector-test
 
 .PHONY: stop-all
 stop-all:

@@ -101,6 +101,8 @@ services:
       - "8000:8000"
     environment:
       SOLR_URL: "http://solr:8983/solr/vector_test/query"
+    volumes:
+      - ./ftdata/vectors/models:/model-cache
     networks:
       - ftdata-network
     depends_on:
@@ -113,22 +115,13 @@ services:
       dockerfile: vectors/indexer/indexer.Dockerfile
     volumes:
       - ./_data:/data:ro
+      - ./ftdata/vectors/models:/model-cache
     environment:
       DATA_DIR: /data
     networks:
       - ftdata-network
     depends_on:
       - solr
-
-  vector-test:
-    profiles: ['vector-test']
-    build:
-      context: ./ftdata
-      dockerfile: vectors/test/test.Dockerfile
-    environment:
-      API_URL: "http://api:8000"
-    networks:
-      - ftdata-network
 
 volumes:
   solr_data:
