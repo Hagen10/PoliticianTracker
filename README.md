@@ -42,8 +42,25 @@ The main branch of the `ftdata`repository now contains dockerfiles to set up a s
 - Security?
 - Look into kamal
 
-### This repo
+### Other things
 - make a way to back up the volume of the solr index
+- Currently we are also indexing all the "Spørgeren" and "Ordføreren" words. We can remove those. Example when searching for "drone":
+Leif Lahn Jensen - 2025-10-09T10:13:12Z
+Spørgeren.
+Leif Lahn Jensen - 2025-10-09T10:16:31Z
+Spørgeren.
+Leif Lahn Jensen - 2025-10-09T10:19:17Z
+Spørgeren.
+Søren Gade - 2025-10-09T11:54:41Z
+Spørgeren.
+Søren Gade - 2025-10-09T11:58:18Z
+Spørgeren.
+Lars-Christian Brask - 2025-10-09T12:43:31Z
+Spørgeren.
+Lars-Christian Brask - 2025-10-09T12:47:08Z
+Spørgeren.
+Lars-Christian Brask - 2025-10-09T12:50:34Z
+Spørgeren. 
 
 ## Update
 - signed signatures are being enforced
