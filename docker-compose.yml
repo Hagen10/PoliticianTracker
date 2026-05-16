@@ -75,6 +75,7 @@ services:
     environment:
       RAILS_ENV: development
       KOTLIN_API_URL: "http://ftdata:8080"
+      VECTOR_API_URL: "http://api:8000"
     depends_on:
       ftdata:
         condition: service_healthy
@@ -86,10 +87,10 @@ services:
       dockerfile: vectors/solr/solr.Dockerfile
     ports:
       - "8983:8983"
-    command:
-      - solr-precreate
-      - vector_test
-      - /opt/solr/server/solr/configsets/vector_config
+    volumes:
+      - solr_data:/var/solr/data
+    networks:
+      - ftdata-network
 
   api:
     profiles: ['vector']
@@ -100,6 +101,10 @@ services:
       - "8000:8000"
     environment:
       SOLR_URL: "http://solr:8983/solr/vector_test/query"
+    volumes:
+      - ./ftdata/vectors/models:/model-cache
+    networks:
+      - ftdata-network
     depends_on:
       - solr
     
@@ -108,8 +113,18 @@ services:
     build:
       context: ./ftdata
       dockerfile: vectors/indexer/indexer.Dockerfile
+    volumes:
+      - ./_data:/data:ro
+      - ./ftdata/vectors/models:/model-cache
+    environment:
+      DATA_DIR: /data
+    networks:
+      - ftdata-network
     depends_on:
       - solr
+
+volumes:
+  solr_data:
 
 networks:
   ftdata-network:

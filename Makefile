@@ -1,9 +1,13 @@
 .PHONY: setup
 setup:
-	git clone https://github.com/Hagen10/ftweb.git
-	git clone https://github.com/Hagen10/ftweb-rb.git
-	git clone https://github.com/Hagen10/ftdata.git
+	test -d ftweb    || git clone https://github.com/Hagen10/ftweb.git
+	test -d ftweb-rb || git clone https://github.com/Hagen10/ftweb-rb.git
+	test -d ftdata   || git clone https://github.com/Hagen10/ftdata.git
 	docker compose --profile core up --build -d
+
+.PHONY: download-data
+download-data:
+	bash scripts/download-ft-helemoedet.sh _data $(ARGS)
 
 .PHONY: run-ts
 run-ts:
@@ -23,6 +27,7 @@ stop-rb:
 	
 .PHONY: run-vector
 run-vector:
+	mkdir -p ftdata/vectors/models
 	docker compose --profile vector up --build -d
 
 .PHONY: stop-vector
