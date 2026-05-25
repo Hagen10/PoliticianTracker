@@ -3,7 +3,6 @@ setup:
 	test -d ftweb    || git clone https://github.com/Hagen10/ftweb.git
 	test -d ftweb-rb || git clone https://github.com/Hagen10/ftweb-rb.git
 	test -d ftdata   || git clone https://github.com/Hagen10/ftdata.git
-	docker compose --profile core up --build -d
 
 .PHONY: download-data
 download-data:
@@ -11,19 +10,19 @@ download-data:
 
 .PHONY: run-ts
 run-ts:
-	docker compose --profile ftdata --profile ftweb-ts up --build -d
+	docker compose --profile core --profile ftdata --profile ftweb-ts up --build -d
 
 .PHONY: stop-ts
 stop-ts:
-	docker compose --profile ftdata --profile ftweb-ts stop
+	docker compose --profile core --profile ftdata --profile ftweb-ts stop
 
 .PHONY: run-rb
 run-rb:
-	docker compose --profile ftdata --profile ftweb-rb up --build -d
+	docker compose --profile core --profile ftdata --profile ftweb-rb up --build -d
 
 .PHONY: stop-rb
 stop-rb:
-	docker compose --profile ftdata --profile ftweb-rb stop
+	docker compose --profile core --profile ftdata --profile ftweb-rb stop
 	
 .PHONY: run-vector
 run-vector:
