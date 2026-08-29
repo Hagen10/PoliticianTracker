@@ -76,6 +76,14 @@ services:
       RAILS_ENV: development
       KOTLIN_API_URL: "http://ftdata:8080"
       VECTOR_API_URL: "http://api:8000"
+    volumes:
+      # Live-mount source so JS/ERB/Ruby edits show up without rebuilding.
+      # Anonymous volumes shield bundle/cache/log/tmp from being clobbered
+      # by the host (which has none of them).
+      - ./ftweb-rb:/rails
+      - /bundle
+      - /rails/tmp
+      - /rails/log
     depends_on:
       ftdata:
         condition: service_healthy
