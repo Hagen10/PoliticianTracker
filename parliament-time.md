@@ -20,6 +20,7 @@ The salary of members of the parliament is public information, it can be used as
 1. break down talking time per member/party
 1. look up salaries
     - database should be added to pt
+    - automate the parliament time to salary conversion (taxpayer money)
 1. measure time spent with discussing topics (broken down)
     - identify topics
     - identify start/end of topic discussion
