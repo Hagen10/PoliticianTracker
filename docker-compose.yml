@@ -96,7 +96,7 @@ services:
     ports:
       - "8983:8983"
     volumes:
-      - solr_data:/var/solr/data
+      - solr_data:/var/solr
     networks:
       - ftdata-network
 

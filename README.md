@@ -64,3 +64,6 @@ Spørgeren.
 
 ## Update
 - signed signatures are being enforced
+
+## 30 AUG 2026 - NOTE
+The gratitude_time.py calculates the gratitude time by dividing the total talk time of the talesegment with (gratitude_words / total_talesegment_words). I think that's generally quite a good way to do it, but I wonder if there's room for optimization? If a Politician stutters and takes long breaks saying "uhm" etc. maybe the total talk time is very long without a large total word count. In that case "tak til ordføreren" will come off as having taken longer to say through this calculation

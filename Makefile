@@ -26,6 +26,9 @@ stop-rb:
 	
 .PHONY: run-vector
 run-vector:
+	mkdir -p ./solr-data
+	sudo chown -R 8983:8983 ./solr-data
+	sudo chmod -R 755 ./solr-data
 	mkdir -p ftdata/vectors/models
 	docker compose --profile vector up --build -d
 
